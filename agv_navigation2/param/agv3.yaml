@@ -1,0 +1,368 @@
+# AMCL Parameters (Particle Filter Localization)
+amcl:
+  ros__parameters:
+    use_sim_time: False  # Use real-time
+    alpha1: 0.2  # Observation model parameters, you can fine-tune
+    alpha2: 0.2
+    alpha3: 0.2
+    alpha4: 0.2
+    alpha5: 0.2
+    base_frame_id: "base_footprint"  # Base frame for your AGV
+    beam_skip_distance: 0.5  # Beam skipping distance
+    beam_skip_error_threshold: 0.9  # Beam skipping error threshold
+    beam_skip_threshold: 0.3  # Beam skipping threshold
+    do_beamskip: false  # Disable beam skipping for now
+    global_frame_id: "map"  # Global frame
+    lambda_short: 0.1  # Short-range lambda
+    laser_likelihood_max_dist: 2.0  # Max laser likelihood distance
+    laser_max_range: 120.0  # Max laser range
+    laser_min_range: 0.99  # Min laser range
+    laser_model_type: "likelihood_field"  # Laser model type
+    max_beams: 60  # Max beams for laser model
+    max_particles: 2000  # Max particles for particle filter
+    min_particles: 500  # Min particles for particle filter
+    odom_frame_id: "odom"  # Odometry frame
+    pf_err: 0.05  # Particle filter error
+    pf_z: 0.99  # Particle filter z
+    recovery_alpha_fast: 0.0  # Recovery parameters
+    recovery_alpha_slow: 0.0
+    resample_interval: 1  # Resampling interval
+    robot_model_type: "nav2_amcl::DifferentialMotionModel"  # Robot motion model
+    save_pose_rate: 0.5  # Pose save rate
+    sigma_hit: 0.2  # Sigma for hit
+    tf_broadcast: true  # Enable TF broadcasting
+    transform_tolerance: 1.0  # Transform tolerance
+    update_min_a: 0.2  # Update parameters
+    update_min_d: 0.25
+    z_hit: 0.5  # Hit parameters
+    z_max: 0.05  # Max parameters
+    z_rand: 0.5  # Random parameters
+    z_short: 0.05  # Short parameters
+    scan_topic: scan  # Laser scan topic
+
+# AMCL Map Client Parameters
+amcl_map_client:
+  ros__parameters:
+    use_sim_time: False  # Use real-time
+
+# AMCL RCLCPP Node Parameters
+amcl_rclcpp_node:
+  ros__parameters:
+    use_sim_time: False  # Use real-time
+
+# BT Navigator Parameters (Behavior Tree Navigation)
+bt_navigator:
+  ros__parameters:
+    use_sim_time: False  # Use real-time
+    global_frame: map  # Global frame for navigation
+    robot_base_frame: base_link  # Base frame for your AGV
+    odom_topic: /odom  # Odometry topic
+    default_bt_xml_filename: "navigate_w_replanning_and_recovery.xml"  # Default BT XML file
+    bt_loop_duration: 10  # BT loop duration (milliseconds)
+    default_server_timeout: 20  # Default server timeout
+    enable_groot_monitoring: True  # Enable monitoring
+    groot_zmq_publisher_port: 1666  # Groot ZMQ publisher port
+    groot_zmq_server_port: 1667  # Groot ZMQ server port
+    plugin_lib_names:  # List of behavior tree plugin names
+
+# BT Navigator RCLCPP Node Parameters
+bt_navigator_rclcpp_node:
+  ros__parameters:
+    use_sim_time: False  # Use real-time
+
+# Controller Server Parameters
+controller_server:
+  ros__parameters:
+    use_sim_time: False  # Use real-time
+    controller_frequency: 10.0  # Controller frequency (Hz)
+    min_x_velocity_threshold: 0.001  # Min linear x velocity threshold
+    min_y_velocity_threshold: 0.5  # Min linear y velocity threshold
+    min_theta_velocity_threshold: 0.001  # Min angular velocity threshold
+    failure_tolerance: 0.3  # Failure tolerance
+    progress_checker_plugin: "progress_checker"  # Progress checker plugin
+    goal_checker_plugins: ["general_goal_checker"]  # Goal checker plugins
+    controller_plugins: ["FollowPath"]  # Controller plugins
+
+    # Progress checker parameters
+    progress_checker:
+      plugin: "nav2_controller::SimpleProgressChecker"
+      required_movement_radius: 0.5  # Required movement radius
+      movement_time_allowance: 10.0  # Movement time allowance
+    
+    # General goal checker parameters
+    general_goal_checker:
+      stateful: True  # Goal checker state
+      plugin: "nav2_controller::SimpleGoalChecker"
+      xy_goal_tolerance: 0.35  # XY goal tolerance
+      yaw_goal_tolerance: 0.35  # Yaw goal tolerance
+
+    # DWB (Dynamic Window Approach) Parameters
+    FollowPath:
+      plugin: "dwb_core::DWBLocalPlanner"
+      debug_trajectory_details: True  # Debug trajectory details
+      min_vel_x: 0.0  # Min linear x velocity
+      min_vel_y: 0.0  # Min linear y velocity
+      max_vel_x: 0.1  # Max linear x velocity (adjust for your AGV)
+      max_vel_y: 0.0  # Max linear y velocity
+      max_vel_theta: 0.15  # Max angular velocity (adjust for your AGV)
+      min_speed_xy: 0.0  # Min speed for XY motion
+      max_speed_xy: 0.1  # Max speed for XY motion (adjust for your AGV)
+      min_speed_theta: 0.0  # Min speed for angular motion
+      acc_lim_x: 0.5  # Linear acceleration limit (m/s^2)
+      acc_lim_y: 0.0  # Linear y acceleration limit
+      acc_lim_theta: 0.2  # Angular acceleration limit (radians/s²)
+      decel_lim_x: -0.5  # Linear deceleration limit (m/s^2)
+      decel_lim_y: 0.0  # Linear y deceleration limit
+      decel_lim_theta: -0.2  # Angular deceleration limit (radians/s²)
+      vx_samples: 20  # Velocity samples for x
+      vy_samples: 0  # Velocity samples for y
+      vtheta_samples: 40  # Velocity samples for theta
+      sim_time: 2.0  # Simulation time
+      linear_granularity: 0.05  # Linear granularity
+      angular_granularity: 0.025  # Angular granularity
+      transform_tolerance: 0.1  # Transform tolerance
+      xy_goal_tolerance: 0.35  # XY goal tolerance
+      trans_stopped_velocity: 0.06  # Translational stopped velocity
+      short_circuit_trajectory_evaluation: True  # Short circuit trajectory evaluation
+      stateful: True  # Planner stateful
+      critics: ["RotateToGoal", "Oscillation", "BaseObstacle", "GoalAlign", "PathAlign", "PathDist", "GoalDist"]
+      BaseObstacle.scale: 0.02  # Base obstacle scale
+      PathAlign.scale: 32.0  # Path alignment scale
+      PathAlign.forward_point_distance: 0.1  # Forward point distance for path alignment
+      GoalAlign.scale: 24.0  # Goal alignment scale
+      GoalAlign.forward_point_distance: 0.1  # Forward point distance for goal alignment
+      PathDist.scale: 32.0  # Path distance scale
+      GoalDist.scale: 24.0  # Goal distance scale
+      RotateToGoal.scale: 32.0  # Rotate to goal scale
+      RotateToGoal.slowing_factor: 5.0  # Slowing factor for rotation
+      RotateToGoal.lookahead_time: -1.0  # Lookahead time for rotation
+
+# Controller Server RCLCPP Node Parameters
+controller_server_rclcpp_node:
+  ros__parameters:
+    use_sim_time: False  # Use real-time
+
+# Local Costmap Parameters
+local_costmap:
+  local_costmap:
+    ros__parameters:
+      update_frequency: 5.0  # Update frequency (Hz)
+      publish_frequency: 2.0  # Publish frequency (Hz)
+      global_frame: odom  # Global frame
+      robot_base_frame: base_link  # Base frame for your AGV
+      use_sim_time: False  # Use real-time
+      rolling_window: true  # Use a rolling window
+      width: 3  # Width of the costmap (adjust as needed)
+      height: 3  # Height of the costmap (adjust as needed)
+      resolution: 0.05  # Map resolution (adjust as needed)
+      robot_radius: 0.22  # Robot radius (adjust for your AGV)
+      plugins: ["obstacle_layer", "voxel_layer", "inflation_layer"]
+      
+      # Inflation layer parameters
+      inflation_layer:
+        plugin: "nav2_costmap_2d::InflationLayer"
+        inflation_radius: 1.0  # Inflation radius
+        cost_scaling_factor: 3.0  # Cost scaling factor
+
+      # Obstacle layer parameters
+      obstacle_layer:
+        plugin: "nav2_costmap_2d::ObstacleLayer"
+        enabled: True
+        observation_sources: scan
+        scan:
+          topic: /scan  # Laser scan topic
+          max_obstacle_height: 2.0  # Max obstacle height
+          clearing: True  # Clear costmap
+          marking: True  # Mark costmap
+          data_type: "LaserScan"
+
+      # Voxel layer parameters
+      voxel_layer:
+        plugin: "nav2_costmap_2d::VoxelLayer"
+        enabled: True
+        publish_voxel_map: True
+        origin_z: 0.0
+        z_resolution: 0.05
+        z_voxels: 16
+        max_obstacle_height: 2.0
+        mark_threshold: 0
+        observation_sources: scan
+        scan:
+          topic: /scan  # Laser scan topic
+          max_obstacle_height: 2.0
+          clearing: True
+          marking: True
+          data_type: "LaserScan"
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
+          obstacle_max_range: 2.5
+          obstacle_min_range: 0.0
+      static_layer:
+        map_subscribe_transient_local: True
+      always_send_full_costmap: True
+
+# Local Costmap Client Parameters
+local_costmap_client:
+  ros__parameters:
+    use_sim_time: False  # Use real-time
+
+# Local Costmap RCLCPP Node Parameters
+local_costmap_rclcpp_node:
+  ros__parameters:
+    use_sim_time: False  # Use real-time
+
+# Global Costmap Parameters
+global_costmap:
+  global_costmap:
+    ros__parameters:
+      update_frequency: 1.0  # Update frequency (Hz)
+      publish_frequency: 1.0  # Publish frequency (Hz)
+      global_frame: map  # Global frame
+      robot_base_frame: base_link  # Base frame for your AGV
+      use_sim_time: True  # Use simulated time
+      robot_radius: 0.22  # Robot radius (adjust for your AGV)
+      resolution: 0.05  # Map resolution (adjust as needed)
+      track_unknown_space: true  # Track unknown space
+      plugins: ["static_layer", "obstacle_layer", "voxel_layer", "inflation_layer"]
+
+      # Obstacle layer parameters
+      obstacle_layer:
+        plugin: "nav2_costmap_2d::ObstacleLayer"
+        enabled: True
+        observation_sources: scan
+        scan:
+          topic: /scan  # Laser scan topic
+          max_obstacle_height: 2.0  # Max obstacle height
+          clearing: True  # Clear costmap
+          marking: True  # Mark costmap
+          data_type: "LaserScan"
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
+          obstacle_max_range: 2.5
+          obstacle_min_range: 0.0
+
+      # Voxel layer parameters
+      voxel_layer:
+        plugin: "nav2_costmap_2d::VoxelLayer"
+        enabled: True
+        publish_voxel_map: True
+        origin_z: 0.0
+        z_resolution: 0.05
+        z_voxels: 16
+        max_obstacle_height: 2.0
+        mark_threshold: 0
+        observation_sources: scan
+        scan:
+          topic: /scan  # Laser scan topic
+          max_obstacle_height: 2.0
+          clearing: True
+          marking: True
+          data_type: "LaserScan"
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
+          obstacle_max_range: 2.5
+          obstacle_min_range: 0.0
+
+      static_layer:
+        plugin: "nav2_costmap_2d::StaticLayer"
+        map_subscribe_transient_local: True
+
+      # Inflation layer parameters
+      inflation_layer:
+        plugin: "nav2_costmap_2d::InflationLayer"
+        cost_scaling_factor: 3.0
+        inflation_radius: 0.55
+
+      always_send_full_costmap: True
+
+# Global Costmap Client Parameters
+global_costmap_client:
+  ros__parameters:
+    use_sim_time: False  # Use real-time
+
+# Global Costmap RCLCPP Node Parameters
+global_costmap_rclcpp_node:
+  ros__parameters:
+    use_sim_time: False  # Use real-time
+
+# Map Server Parameters
+map_server:
+  ros__parameters:
+    use_sim_time: False  # Use real-time
+    yaml_filename: "map.yaml"  # Path to your map YAML file
+
+# Map Saver Parameters
+map_saver:
+  ros__parameters:
+    use_sim_time: False  # Use real-time
+    save_map_timeout: 5.0  # Save map timeout
+    free_thresh_default: 0.25  # Free threshold (adjust as needed)
+    occupied_thresh_default: 0.65  # Occupied threshold (adjust as needed)
+    map_subscribe_transient_local: True  # Subscribe to the local map
+
+# Planner Server Parameters
+planner_server:
+  ros__parameters:
+    expected_planner_frequency: 20.0  # Expected planner frequency (Hz)
+    use_sim_time: False  # Use real-time
+    planner_plugins: ["GridBased"]  # Planner plugins
+
+    # Grid-Based Planner Parameters
+    GridBased:
+      plugin: "nav2_navfn_planner/NavfnPlanner"
+      tolerance: 0.5  # Tolerance for planning
+      use_astar: false  # Use A* algorithm (can be set to true if needed)
+      allow_unknown: true  # Allow unknown space in planning
+
+# Planner Server RCLCPP Node Parameters
+planner_server_rclcpp_node:
+  ros__parameters:
+    use_sim_time: False  # Use real-time
+
+# Recoveries Server Parameters
+recoveries_server:
+  ros__parameters:
+    costmap_topic: local_costmap/costmap_raw  # Costmap topic
+    footprint_topic: local_costmap/published_footprint  # Footprint topic
+    cycle_frequency: 10.0  # Cycle frequency (Hz)
+    recovery_plugins: ["spin", "backup", "wait"]  # Recovery behavior plugins
+
+    # Spin Behavior Parameters
+    spin:
+      plugin: "nav2_recoveries/Spin"
+
+    # Backup Behavior Parameters
+    backup:
+      plugin: "nav2_recoveries/BackUp"
+
+    # Wait Behavior Parameters
+    wait:
+      plugin: "nav2_recoveries/Wait"
+
+    global_frame: odom  # Global frame
+    robot_base_frame: base_link  # Base frame for your AGV
+    transform_timeout: 0.1  # Transform timeout
+    use_sim_time: true  # Use simulated time
+    simulate_ahead_time: 2.0  # Simulate ahead time
+    max_rotational_vel: 0.1  # Max rotational velocity
+    min_rotational_vel: 0.05  # Min rotational velocity
+    rotational_acc_lim: 3.2  # Rotational acceleration limit
+
+# Robot State Publisher Parameters
+robot_state_publisher:
+  ros__parameters:
+    use_sim_time: False  # Use real-time
+
+# Waypoint Follower Parameters
+waypoint_follower:
+  ros__parameters:
+    loop_rate: 200  # Loop rate (adjust as needed)
+    stop_on_failure: false  # Stop on failure
+    waypoint_task_executor_plugin: "wait_at_waypoint"  # Waypoint task executor plugin
+
+    # Wait at Waypoint Parameters
+    wait_at_waypoint:
+      plugin: "nav2_waypoint_follower::WaitAtWaypoint"
+      enabled: True
+      waypoint_pause_duration: 400  # Waypoint pause duration (adjust as needed, in milliseconds)
+

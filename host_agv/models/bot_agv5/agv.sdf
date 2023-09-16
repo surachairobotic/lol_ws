@@ -1,0 +1,693 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <model name="bot_agv5">
+
+    <link name="base_footprint"/>
+    
+        <joint name="base_joint" type="fixed">
+          <parent>base_footprint</parent>
+          <child>base_link</child>
+          <pose>0 0 0 0 0 0</pose>
+        </joint>
+  
+    <link name='base_link'>
+      <inertial>
+        <mass>288.88</mass>
+        <pose>0.4493 0.836784 0.846149 0 -0 0</pose>
+        <inertia>
+          <ixx>44.848</ixx>
+          <ixy>-0.16219</ixy>
+          <ixz>0.0078397</ixz>
+          <iyy>53.3</iyy>
+          <iyz>-0.0015458</iyz>
+          <izz>49.091</izz>
+        </inertia>
+      </inertial>
+      <collision name='base_link_collision'>
+        <pose>-0.3 0.8 -0.5 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://bot_agv5/meshes/base_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      
+      <visual name='base_link_visual'>
+        <pose>-0.3 0.8 -0.5 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://bot_agv5/meshes/base_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+       </link>
+       
+       <link name="sensor_one">
+        <inertial>
+          <pose>-0.011509 -7.9086E-05 0.014139 0 0 0</pose>
+          <mass>0.0062193</mass>
+          <inertia>
+            <ixx>2.1694E-07</ixx>
+            <ixy>1.2249E-09</ixy>
+            <ixz>-5.1946E-14</ixz>
+            <iyy>9.8554E-07</iyy>
+            <iyz>2.2269E-09</iyz>
+            <izz>1.0096E-06</izz>
+          </inertia>
+        </inertial>
+
+      <collision name='sensor_one_collision'>
+        <pose>0.65093 -0.03366 -0.0928 1.5708 -0 1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://bot_agv5/meshes/sensor_one.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      
+      <visual name='sensor_one_visual'>
+        <pose>0.65093 -0.03366 -0.0928 1.5708 -0 1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://bot_agv5/meshes/sensor_one.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+       </link>
+      <!-- Joint connecting base_link to sensor_one -->
+      <joint name="front_one_joint" type="fixed">
+        <parent>base_link</parent>
+        <child>sensor_one</child>
+        <pose>0.65093 -0.03366 -0.0928 0 0 0</pose>
+      </joint>
+
+      <link name="sensor_two">
+        <inertial>
+          <pose>-0.011509 -7.9086E-05 0.014139 0 0 0</pose>
+          <mass>0.0062193</mass>
+          <inertia>
+            <ixx>2.1694E-07</ixx>
+            <ixy>1.2249E-09</ixy>
+            <ixz>-5.1946E-14</ixz>
+            <iyy>9.8554E-07</iyy>
+            <iyz>2.2269E-09</iyz>
+            <izz>1.0096E-06</izz>
+          </inertia>
+        </inertial>
+       
+      <collision name='sensor_two_collision'>
+        <pose>0.64019 -0.3492 -0.0427 1.5708 -0 1.3198</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://bot_agv5/meshes/sensor_two.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      
+      <visual name='sensor_two_visual'>
+        <pose>0.64019 -0.3492 -0.0427 1.5708 -0 1.3198</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://bot_agv5/meshes/sensor_two.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      </link>
+      <!-- Joint connecting base_link to sensor_two -->
+      <joint name="front_two_joint" type="fixed">
+         <parent>base_link</parent>
+         <child>sensor_two</child>
+         <pose>0.64019 -0.3492 -0.0427 0 0 0</pose>
+      </joint>
+      
+      <link name="sensor_three">
+        <inertial>
+          <pose>-0.011509 -7.9086E-05 0.014139 0 0 0</pose>
+          <mass>0.0062193</mass>
+          <inertia>
+            <ixx>2.1694E-07</ixx>
+            <ixy>1.2249E-09</ixy>
+            <ixz>-5.1946E-14</ixz>
+            <iyy>9.8554E-07</iyy>
+            <iyz>2.2269E-09</iyz>
+            <izz>1.0096E-06</izz>
+          </inertia>
+        </inertial>
+      <collision name='sensor_three_collision'>
+        <pose>0.63474 0.2451 -0.0428 1.5708 0 1.8218</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://bot_agv5/meshes/sensor_three.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      
+      <visual name='sensor_three_visual'>
+        <pose>0.63474 0.2451 -0.0428 1.5708 0 1.8218</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://bot_agv5/meshes/sensor_three.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      </link> 
+      <!-- Joint connecting base_link to sensor_three -->
+      <joint name="front_three_joint" type="fixed">
+         <parent>base_link</parent>
+         <child>sensor_three</child>
+         <pose>0.63474 0.2451 -0.0428 0 0 0</pose>
+      </joint>
+
+      <link name="sensor_four">
+        <inertial>
+          <pose>-0.011509 -7.9086E-05 0.014139 0 0 0</pose>
+          <mass>0.0062193</mass>
+          <inertia>
+            <ixx>2.1694E-07</ixx>
+            <ixy>1.2249E-09</ixy>
+            <ixz>-5.1946E-14</ixz>
+            <iyy>9.8554E-07</iyy>
+            <iyz>2.2269E-09</iyz>
+            <izz>1.0096E-06</izz>
+          </inertia>
+        </inertial>
+       
+      <collision name='sensor_four_collision_2'>
+        <pose>-0.355584 -0.03366 -0.0928 -1.5708 -0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://bot_agv5/meshes/sensor_four.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      
+      <visual name='sensor_four_visual'>
+        <pose>-0.355584 -0.03366 -0.0928 -1.5708 -0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://bot_agv5/meshes/sensor_four.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      </link>
+      <!-- Joint connecting base_link to sensor_four -->
+      <joint name="back_four_joint" type="fixed">
+         <parent>base_link</parent>
+         <child>sensor_four</child>
+         <pose>-0.355584 -0.03366 -0.0928 0 0 0</pose>
+      </joint>
+      
+      <link name="sensor_five">
+        <inertial>
+          <pose>-0.011509 -7.9086E-05 0.014139 0 0 0</pose>
+          <mass>0.0062193</mass>
+          <inertia>
+            <ixx>2.1694E-07</ixx>
+            <ixy>1.2249E-09</ixy>
+            <ixz>-5.1946E-14</ixz>
+            <iyy>9.8554E-07</iyy>
+            <iyz>2.2269E-09</iyz>
+            <izz>1.0096E-06</izz>
+          </inertia>
+        </inertial>
+
+      <collision name='sensor_five_collision'>
+        <pose>-0.344519 0.25883 -0.0428 1.5708 -0 -1.8218</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://bot_agv5/meshes/sensor_five.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      
+      <visual name='sensor_five_visual'>
+        <pose>-0.344519 0.25883 -0.0428 1.5708 -0 -1.8218</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://bot_agv5/meshes/sensor_five.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      </link>
+
+      <!-- Joint connecting base_link to sensor_five -->
+      <joint name="back_five_joint" type="fixed">
+         <parent>base_link</parent>
+         <child>sensor_five</child>
+         <pose>-0.344519 0.25883 -0.0428 0 0 0</pose>
+      </joint>
+      
+      <link name="sensor_six">
+        <inertial>
+          <pose>-0.011509 -7.9086E-05 0.014139 0 0 0</pose>
+          <mass>0.0062193</mass>
+          <inertia>
+            <ixx>2.1694E-07</ixx>
+            <ixy>1.2249E-09</ixy>
+            <ixz>-5.1946E-14</ixz>
+            <iyy>9.8554E-07</iyy>
+            <iyz>2.2269E-09</iyz>
+            <izz>1.0096E-06</izz>
+          </inertia>
+        </inertial>
+
+      <collision name='sensor_six_collision'>
+        <pose>-0.344519 -0.3501 -0.0428 1.5708 -0 -1.3198</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://bot_agv5/meshes/sensor_six.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      
+      <visual name='sensor_six_visual'>
+        <pose>-0.344519 -0.3501 -0.0428 1.5708 -0 -1.3198</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://bot_agv5/meshes/sensor_six.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      </link>
+
+      <!-- Joint connecting base_link to sensor_six -->
+     <joint name="back_six_joint" type="fixed">
+        <parent>base_link</parent>
+        <child>sensor_six</child>
+        <pose>-0.344519 -0.3501 -0.0428 0 0 0</pose>
+     </joint>
+
+     <link name="camera_link">
+      <inertial>
+        <pose>1.1443E-05 -0.00013623 0.011556 0 0 0</pose>
+        <mass>0.10791</mass>
+        <inertia>
+          <ixx>7.7099E-06</ixx>
+          <ixy>-2.7921E-10</ixy>
+          <ixz>-1.7968E-08</ixz>
+          <iyy>7.0256E-05</iyy>
+          <iyz>4.9369E-08</iyz>
+          <izz>7.1254E-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='camera_link_collision'>
+        <pose>0.61315 -0.04578 -0.00105 1.4667 -0 1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://bot_agv5/meshes/camera_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      
+      <visual name='camera_link_visual'>
+        <pose>0.61315 -0.04578 -0.00105 1.4667 -0 1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://bot_agv5/meshes/camera_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      </link>
+
+      <!-- Joint connecting base_link to camera_link -->
+      <joint name="camera_joint" type="fixed">
+        <pose>0.61315 -0.04578 -0.00105 0 0 0</pose>
+        <parent>base_link</parent>
+        <child>camera_link</child>
+        <axis>
+          <xyz>0 0 0</xyz>
+        </axis>
+      </joint>
+
+      <link name="laser_link">
+        <inertial>
+          <mass>0.60561</mass>
+          <pose>0.00010213 0.036297 3.2869E-06 0 0 0</pose>
+          <inertia>
+            <ixx>0.00066704</ixx>
+            <ixy>1.8129E-06</ixy>
+            <ixz>1.7526E-11</ixz>
+            <iyy>0.00080407</iyy>
+            <iyz>6.6764E-08</iyz>
+            <izz>0.00067092</izz>
+          </inertia>
+        </inertial>
+      <collision name='laser_link_collision'>
+        <pose>0.709 -0.04566 1.5197 1.5708 -0 -3.14159</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://bot_agv5/meshes/laser_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      
+      <visual name='laser_link_visual'>
+        <pose>0.709 -0.04566 1.5197 1.5708 -0 -3.14159</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://bot_agv5/meshes/laser_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      </link>
+
+      <joint name="lslidar_joint" type="fixed">
+        <parent>base_link</parent>
+        <child>laser_link</child>
+        <pose>0.709 -0.04566 1.5197 0 0 0</pose>
+      </joint>
+
+    <joint name='wheel_left_joint' type='revolute'>
+      <pose relative_to='base_link'>0.14771 -0.3482 -0.0703 0 -0 0</pose>
+      <parent>base_footprint</parent>
+      <child>wheel_left_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='wheel_left_link'>
+      <pose relative_to='wheel_left_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0.05 0 -0 0</pose>
+        <mass>2.9679</mass>
+        <inertia>
+          <ixx>0.0097224</ixx>
+          <ixy>-2.1684e-19</ixy>
+          <ixz>-1.6122e-19</ixz>
+          <iyy>0.0097224</iyy>
+          <iyz>1.7156e-20</iyz>
+          <izz>0.014755</izz>
+        </inertia>
+      </inertial>
+      <collision name='wheel_left_link_collision'>
+        <pose>0 0 0 -1.5708 0.21783 -3.1416</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://bot_agv5/meshes/wheel_left_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='wheel_left_link_visual'>
+        <pose>0 0 0 -1.5708 0.21783 -3.1416</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://bot_agv5/meshes/wheel_left_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='wheel_right_joint' type='revolute'>
+      <pose relative_to='base_link'>0.14771 0.35684 -0.0703 0 -0 0</pose>
+      <parent>base_footprint</parent>
+      <child>wheel_right_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='wheel_right_link'>
+      <pose relative_to='wheel_right_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 -0 0.05 0 -0 0</pose>
+        <mass>2.9679</mass>
+        <inertia>
+          <ixx>0.0097224</ixx>
+          <ixy>-6.074e-38</ixy>
+          <ixz>0</ixz>
+          <iyy>0.0097224</iyy>
+          <iyz>-1.6088e-35</iyz>
+          <izz>0.014755</izz>
+        </inertia>
+      </inertial>
+      <collision name='wheel_right_link_collision'>
+        <pose>0 0 0 1.5708 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://bot_agv5/meshes/wheel_right_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='wheel_right_link_visual'>
+        <pose>0 0 0 1.5708 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://bot_agv5/meshes/wheel_right_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name='imu_link'>
+      <inertial>
+        <pose>-0.0184 0.0275 -0.012 0 0 0</pose>
+        <mass>0.048576</mass>
+        <inertia>
+          <ixx>1.4577E-05</ixx>
+          <ixy>3.3007E-20</ixy>
+          <ixz>-2.8462E-20</ixz>
+          <iyy>7.8136E-06</iyy>
+          <iyz>2.1514E-19</iyz>
+          <izz>1.7727E-05</izz>
+        </inertia>
+      </inertial>
+      <visual name="imu_visual">
+      <pose>-0.289788 0.18274 0.0147 3.14159 0 1.5708</pose>
+      <geometry>
+        <mesh>
+          <scale>1 1 1</scale>
+          <uri>model://bot_agv5/meshes/imu_link.STL</uri>
+        </mesh>
+      </geometry>
+    </visual>
+    <collision name="imu_collision">
+      <pose>-0.289788 0.18274 0.0147 3.14159 0 1.5708</pose>
+      <geometry>
+        <mesh>
+          <scale>1 1 1</scale>
+          <uri>model://bot_agv5/meshes/imu_link.STL</uri>
+        </mesh>
+      </geometry>
+    </collision>
+    <sensor name="agv_imu" type="imu">
+      <always_on>true</always_on>
+      <update_rate>200</update_rate>
+      <imu>
+        <angular_velocity>
+          <x>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>2e-4</stddev>
+            </noise>
+          </x>
+          <y>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>2e-4</stddev>
+            </noise>
+          </y>
+          <z>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>2e-4</stddev>
+            </noise>
+          </z>
+        </angular_velocity>
+        <linear_acceleration>
+          <x>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>1.7e-2</stddev>
+            </noise>
+          </x>
+          <y>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>1.7e-2</stddev>
+            </noise>
+          </y>
+          <z>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>1.7e-2</stddev>
+            </noise>
+          </z>
+        </linear_acceleration>
+      </imu>
+      <plugin name="bot_imu" filename="libgazebo_ros_imu_sensor.so">
+        <ros>
+          <!-- <namespace>/agv</namespace> -->
+          <remapping>~/out:=imu</remapping>
+        </ros>
+      </plugin>
+    </sensor>
+  </link>
+
+    <joint name="imu_joint" type="fixed">
+      <pose relative_to="base_link">-0.289788 0.18274 0.0147 3.14159 0 1.5708</pose>
+       <parent>base_link</parent>
+       <child>imu_link</child>
+     <axis>
+      <xyz>0 0 1</xyz>
+     </axis>
+   </joint>
+
+   <link name='laser'>
+    <inertial>
+      <mass>0.16307</mass>
+      <pose>0.00025711 -0.019085 -0.00093411 0 0 0</pose>
+      <inertia>
+        <ixx>6.0437E-05</ixx>
+        <ixy>-6.5608E-08</ixy>
+        <ixz>-1.1037E-07</ixz>
+        <iyy>0.00010759</iyy>
+        <iyz>2.3216E-07</iyz>
+        <izz>6.0727E-05</izz>
+      </inertia>
+    </inertial>
+    <visual name="laser_visual">
+    <pose>0.14756 -0.04551 0.0627 -1.5708 -0 -1.5708</pose>
+    <geometry>
+      <mesh>
+        <scale>1 1 1</scale>
+        <uri>model://bot_agv5/meshes/laser.STL</uri>
+      </mesh>
+    </geometry>
+  </visual>
+
+  <collision name="laser_collision">
+    <pose>0.14756 -0.04551 0.0627 -1.5708 -0 -1.5708</pose>
+    <geometry>
+      <mesh>
+        <scale>1 1 1</scale>
+        <uri>model://bot_agv5/meshes/laser.STL</uri>
+      </mesh>
+    </geometry>
+  </collision>
+  <sensor name="lidar" type="ray">
+    <always_on>true</always_on>
+    <visualize>false</visualize>
+    <pose>0.14756 -0.04551 0.0627 0 0 0</pose>
+    <update_rate>5</update_rate>
+    <ray>
+      <scan>
+        <horizontal>
+          <samples>360</samples>
+          <resolution>1.000000</resolution>
+          <min_angle>0.0000</min_angle>
+          <max_angle>6.280000</max_angle>
+        </horizontal>
+      </scan>
+      <range>
+        <min>0.20000</min>
+        <max>25.0</max>
+        <resolution>0.015000</resolution>
+      </range>
+      <noise>
+        <type>gaussian</type>
+        <mean>0.0</mean>
+        <stddev>0.01</stddev>
+      </noise>
+    </ray>
+    <plugin name="agv2_laserscan" filename="libgazebo_ros_ray_sensor.so">
+      <ros>
+        <!--namespace>/agv</namespace-->
+        <remapping>~/out:=scan</remapping>
+      </ros>
+      <output_type>sensor_msgs/LaserScan</output_type>
+      <frame_name>laser</frame_name>
+    </plugin>
+  </sensor>
+   </link>
+
+   <joint name="rplidar_joint" type="fixed">
+    <pose relative_to="base_link">0.14756 -0.04551 0.0627 -1.5708 -0 -1.5708</pose>
+     <parent>base_link</parent>
+     <child>laser</child>
+   <axis>
+    <xyz>0 0 1</xyz>
+   </axis>
+ </joint>
+
+
+    <plugin name="agv_diff_drive" filename="libgazebo_ros_diff_drive.so">
+
+      <ros>
+        <!-- <namespace>/agv</namespace> -->
+      </ros>
+
+      <update_rate>30</update_rate>
+
+      <!-- wheels -->
+      <left_joint>wheel_left_joint</left_joint>
+      <right_joint>wheel_right_joint</right_joint>
+
+      <!-- kinematics -->
+      <wheel_separation>0.605</wheel_separation>
+      <wheel_diameter>0.2</wheel_diameter>
+
+      <!-- limits -->
+      <max_wheel_torque>20</max_wheel_torque>
+      <max_wheel_acceleration>1.0</max_wheel_acceleration>
+
+      <command_topic>cmd_vel</command_topic>
+
+      <!-- output -->
+      <publish_odom>true</publish_odom>
+      <publish_odom_tf>true</publish_odom_tf>
+      <publish_wheel_tf>false</publish_wheel_tf>
+
+      <odometry_topic>odom</odometry_topic>
+      <odometry_frame>odom</odometry_frame>
+      <robot_base_frame>base_footprint</robot_base_frame>
+
+    </plugin>
+
+    <plugin name="agv_joint_state" filename="libgazebo_ros_joint_state_publisher.so">
+      <ros>
+        <!-- <namespace>/agv</namespace> -->
+        <remapping>~/out:=joint_states</remapping>
+      </ros>
+      <update_rate>30</update_rate>
+      <joint_name>wheel_left_joint</joint_name>
+      <joint_name>wheel_right_joint</joint_name>
+    </plugin>      
+
+  </model>
+</sdf>

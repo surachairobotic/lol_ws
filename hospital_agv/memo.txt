@@ -1,0 +1,13 @@
+ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
+ros2 launch turtlebot3_gazebo turtlebot3_cmit_world.launch.py
+
+
+ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=True map:=/home/cmit/maps/turtle_map.yaml
+ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=True map:=/home/cmit/maps/cmit_map.yaml
+
+
+cd ~/ros2_ws/src/hospital_agv/hospital_agv
+python3 -m uvicorn server:app --reload --host 0.0.0.0
+
+
+ros2 run hospital_agv robot_state_publisher

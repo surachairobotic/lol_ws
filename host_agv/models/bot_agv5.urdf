@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="bot_agv5" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- Base footprint -->
+<link name="base_footprint"/>
+
+<!-- Joint connecting base_footprint to base_link -->
+<joint name="base_joint" type="fixed">
+  <parent link="base_footprint"/>
+  <child link="base_link"/>
+  <origin xyz="0 0 0" rpy="0 0 0"/>
+</joint>
+
+<!-- Base link -->
+<link name="base_link">
+  <inertial>
+    <origin xyz="0.44897 0.83959 0.84573" rpy="0 0 0" />
+    <mass value="288.88" />
+    <inertia ixx="44.848" ixy="-0.16219" ixz="0.0078397" iyy="53.3" iyz="-0.0015458" izz="49.091" />
+  </inertial>
+  <visual>
+    <origin xyz="-0.3 0.8 -0.5" rpy="0 0 0" />
+    <geometry>
+      <mesh filename="package://host_agv/models/bot_agv5/meshes/base_link.STL" />
+    </geometry>
+    <material name="">
+      <color rgba="0.79216 0.81961 0.93333 1" />
+    </material>
+  </visual>
+  <collision>
+    <origin xyz="-0.3 0.8 -0.5" rpy="0 0 0" />
+    <geometry>
+      <mesh filename="package://host_agv/models/bot_agv5/meshes/base_link.STL" />
+    </geometry>
+  </collision>
+</link>
+
+<!-- Laser -->
+<link name="laser">
+  <inertial>
+    <origin xyz="0.00025711 -0.019085 -0.00093411" rpy="0 0 0" />
+    <mass value="0.16307" />
+    <inertia ixx="6.0437E-05" ixy="-6.5608E-08" ixz="-1.1037E-07" iyy="0.00010759" iyz="2.3216E-07" izz="6.0727E-05" />
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708" />
+    <geometry>
+      <mesh filename="package://host_agv/models/bot_agv5/meshes/laser.STL" />
+    </geometry>
+    <material name="">
+      <color rgba="0.79216 0.81961 0.93333 1" />
+    </material>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708" />
+    <geometry>
+      <mesh filename="package://host_agv/models/bot_agv5/meshes/laser.STL" />
+    </geometry>
+  </collision>
+</link>
+
+<!-- Joint connecting base_link to laser -->
+<joint name="rplidar_joint" type="fixed">
+  <origin xyz="0.14756 -0.04551 0.0627" rpy="0 0 3.1416" />
+  <parent link="base_link" />
+  <child link="laser" />
+  <axis xyz="0 0 1" />
+</joint>
+
+<!-- Laser link -->
+<link name="laser_link">
+  <inertial>
+    <origin xyz="0.00010213 0.036297 3.2869E-06" rpy="0 0 0" />
+    <mass value="0.60561" />
+    <inertia ixx="0.00066704" ixy="1.8129E-06" ixz="1.7526E-11" iyy="0.00080407" iyz="6.6764E-08" izz="0.00067092" />
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="1.5708 0 3.1416" />
+    <geometry>
+      <mesh filename="package://host_agv/models/bot_agv5/meshes/laser_link.STL" />
+    </geometry>
+    <material name="">
+      <color rgba="0.79216 0.81961 0.93333 1" />
+    </material>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="1.5708 0 3.1416" />
+    <geometry>
+      <mesh filename="package://host_agv/models/bot_agv5/meshes/laser_link.STL" />
+    </geometry>
+  </collision>
+</link>
+
+<!-- Joint connecting base_link to laser_link -->
+<joint name="lslidar_joint" type="fixed">
+  <origin xyz="0.709 -0.04566 1.5197" rpy="0 0 1.5708" />
+  <parent link="base_link" />
+  <child link="laser_link" />
+  <axis xyz="0 0 1" />
+</joint>
+
+<!-- Left wheel link -->
+<link name="wheel_left_link">
+  <inertial>
+    <origin xyz="0 0 0.05" rpy="0 0 0" />
+    <mass value="2.9679" />
+    <inertia ixx="0.0097224" ixy="-2.1684E-19" ixz="-1.6122E-19" iyy="0.0097224" iyz="1.7156E-20" izz="0.014755" />
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="-1.5708 0.21783 -3.1416" />
+    <geometry>
+      <mesh filename="package://host_agv/models/bot_agv5/meshes/wheel_left_link.STL" />
+    </geometry>
+    <material name="">
+      <color rgba="0.79216 0.81961 0.93333 1" />
+    </material>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="-1.5708 0.21783 -3.1416" />
+    <geometry>
+      <mesh filename="package://host_agv/models/bot_agv5/meshes/wheel_left_link.STL" />
+    </geometry>
+  </collision>
+</link>
+
+<!-- Joint connecting base_link to left wheel -->
+<joint name="wheel_left_joint" type="continuous">
+  <origin xyz="0.14771 -0.3482 -0.0703" rpy="0 0 0" />
+  <parent link="base_link" />
+  <child link="wheel_left_link" />
+  <axis xyz="0 1 0" />
+</joint>
+
+<!-- Right wheel link -->
+<link name="wheel_right_link">
+  <inertial>
+    <origin xyz="5.5511E-17 -5.5511E-17 0.05" rpy="0 0 0" />
+    <mass value="2.9679" />
+    <inertia ixx="0.0097224" ixy="-6.074E-38" ixz="0" iyy="0.0097224" iyz="-1.6088E-35" izz="0.014755" />
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="1.5708 0 0" />
+    <geometry>
+      <mesh filename="package://host_agv/models/bot_agv5/meshes/wheel_right_link.STL" />
+    </geometry>
+    <material name="">
+      <color rgba="0.79216 0.81961 0.93333 1" />
+    </material>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="1.5708 0 0" />
+    <geometry>
+      <mesh filename="package://host_agv/models/bot_agv5/meshes/wheel_right_link.STL" />
+    </geometry>
+  </collision>
+</link>
+
+<!-- Joint connecting base_link to right wheel -->
+<joint name="wheel_right_joint" type="continuous">
+  <origin xyz="0.14771 0.35684 -0.0703" rpy="0 0 0" />
+  <parent link="base_link" />
+  <child link="wheel_right_link" />
+  <axis xyz="0 1 0" />
+</joint>
+
+<!-- IMU link -->
+<link name="imu_link">
+  <inertial>
+    <origin xyz="-0.0184 0.0275 -0.012" rpy="0 0 0" />
+    <mass value="0.048576" />
+    <inertia ixx="1.4577E-05" ixy="3.3007E-20" ixz="-2.8462E-20" iyy="7.8136E-06" iyz="2.1514E-19" izz="1.7727E-05" />
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="-3.1416 0 1.5708" />
+    <geometry>
+      <mesh filename="package://host_agv/models/bot_agv5/meshes/imu_link.STL" />
+    </geometry>
+    <material name="">
+      <color rgba="0.79216 0.81961 0.93333 1" />
+    </material>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="-3.1416 0 1.5708" />
+    <geometry>
+      <mesh filename="package://host_agv/models/bot_agv5/meshes/imu_link.STL" />
+    </geometry>
+  </collision>
+</link>
+
+<!-- Joint connecting base_link to imu_link -->
+<joint name="imu_joint" type="fixed">
+  <origin xyz="-0.289788 0.18274 0.0147" rpy="0 0 0" />
+  <parent link="base_link" />
+  <child link="imu_link" />
+  
+</joint>
+
+<!-- Camera link -->
+<link name="camera_link">
+  <inertial>
+    <origin xyz="1.1443E-05 -0.00013623 0.011556" rpy="0 0 0" />
+    <mass value="0.10791" />
+    <inertia ixx="7.7099E-06" ixy="-2.7921E-10" ixz="-1.7968E-08" iyy="7.0256E-05" iyz="4.9369E-08" izz="7.1254E-05" />
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="1.4667 0 1.5708" />
+    <geometry>
+      <mesh filename="package://host_agv/models/bot_agv5/meshes/camera_link.STL" />
+    </geometry>
+    <material name="">
+      <color rgba="0.89804 0.91765 0.92941 1" />
+    </material>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="1.4667 0 1.5708" />
+    <geometry>
+      <mesh filename="package://host_agv/models/bot_agv5/meshes/camera_link.STL" />
+    </geometry>
+  </collision>
+</link>
+
+<!-- Joint connecting base_link to camera_link -->
+<joint name="camera_joint" type="fixed">
+  <origin xyz="0.61315 -0.04578 -0.00105" rpy="0 0 0" />
+  <parent link="base_link" />
+  <child link="camera_link" />
+  <axis xyz="0 0 0" />
+</joint>
+
+<!-- Sensor one link -->
+<link name="sensor_one">
+  <inertial>
+    <origin xyz="-0.011509 -7.9086E-05 0.014139" rpy="0 0 0" />
+    <mass value="0.0062193" />
+    <inertia ixx="2.1694E-07" ixy="1.2249E-09" ixz="-5.1946E-14" iyy="9.8554E-07" iyz="2.2269E-09" izz="1.0096E-06" />
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="1.5708 0 1.5708" />
+    <geometry>
+      <mesh filename="package://host_agv/models/bot_agv5/meshes/sensor_one.STL" />
+    </geometry>
+    <material name="">
+      <color rgba="0.29804 0.29804 0.29804 1" />
+    </material>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="1.5708 0 1.5708" />
+    <geometry>
+      <mesh filename="package://host_agv/models/bot_agv5/meshes/sensor_one.STL" />
+    </geometry>
+  </collision>
+</link>
+
+<!-- Joint connecting base_link to sensor_one -->
+<joint name="front_one_joint" type="fixed">
+  <origin xyz="0.65093 -0.03366 -0.0928" rpy="0 0 0" />
+  <parent link="base_link" />
+  <child link="sensor_one" />
+  <axis xyz="0 0 0" />
+</joint>
+
+<!-- Sensor two link -->
+<link name="sensor_two">
+  <inertial>
+    <origin xyz="-8.5525E-06 -7.9086E-05 0.0043485" rpy="0 0 0" />
+    <mass value="0.0062193" />
+    <inertia ixx="2.1694E-07" ixy="1.2249E-09" ixz="-5.1688E-14" iyy="9.8554E-07" iyz="2.2269E-09" izz="1.0096E-06" />
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="1.5708 0 1.3198" />
+    <geometry>
+      <mesh filename="package://host_agv/models/bot_agv5/meshes/sensor_two.STL" />
+    </geometry>
+    <material name="">
+      <color rgba="0.29804 0.29804 0.29804 1" />
+    </material>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="1.5708 0 1.3198" />
+    <geometry>
+      <mesh filename="package://host_agv/models/bot_agv5/meshes/sensor_two.STL" />
+    </geometry>
+  </collision>
+</link>
+
+<!-- Joint connecting base_link to sensor_two -->
+<joint name="front_two_joint" type="fixed">
+  <origin xyz="0.64019 -0.3492 -0.0427" rpy="0 0 0" />
+  <parent link="base_link" />
+  <child link="sensor_two" />
+  <axis xyz="0 0 0" />
+</joint>
+
+<!-- Sensor three link -->
+<link name="sensor_three">
+  <inertial>
+    <origin xyz="0.011491 -7.9086E-05 0.012794" rpy="0 0 0" />
+    <mass value="0.0062193" />
+    <inertia ixx="2.1694E-07" ixy="1.2249E-09" ixz="-5.341E-14" iyy="9.8554E-07" iyz="2.2269E-09" izz="1.0096E-06" />
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="1.5708 0 1.8218" />
+    <geometry>
+      <mesh filename="package://host_agv/models/bot_agv5/meshes/sensor_three.STL" />
+    </geometry>
+    <material name="">
+      <color rgba="0.29804 0.29804 0.29804 1" />
+    </material>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="1.5708 0 1.8218" />
+    <geometry>
+      <mesh filename="package://host_agv/models/bot_agv5/meshes/sensor_three.STL" />
+    </geometry>
+  </collision>
+</link>
+
+<!-- Joint connecting base_link to sensor_three -->
+<joint name="front_three_joint" type="fixed">
+  <origin xyz="0.63474 0.2451 -0.0428" rpy="0 0 0" />
+  <parent link="base_link" />
+  <child link="sensor_three" />
+  <axis xyz="0 0 0" />
+</joint>
+
+<!-- Sensor four link -->
+<link name="sensor_four">
+  <inertial>
+    <origin xyz="0.011491 7.9086E-05 -0.014139" rpy="0 0 0" />
+    <mass value="0.0062193" />
+    <inertia ixx="2.1694E-07" ixy="-1.2249E-09" ixz="5.1946E-14" iyy="9.8554E-07" iyz="2.2269E-09" izz="1.0096E-06" />
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708" />
+    <geometry>
+      <mesh filename="package://host_agv/models/bot_agv5/meshes/sensor_four.STL" />
+    </geometry>
+    <material name="">
+      <color rgba="0.29804 0.29804 0.29804 1" />
+    </material>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708" />
+    <geometry>
+      <mesh filename="package://host_agv/models/bot_agv5/meshes/sensor_four.STL" />
+    </geometry>
+  </collision>
+</link>
+
+<!-- Joint connecting base_link to sensor_four -->
+<joint name="back_four_joint" type="fixed">
+  <origin xyz="-0.355584 -0.03366 -0.0928" rpy="0 0 0" />
+  <parent link="base_link" />
+  <child link="sensor_four" />
+  <axis xyz="0 0 0" />
+</joint>
+
+<!-- Sensor five link -->
+<link name="sensor_five">
+  <inertial>
+    <origin xyz="-8.5525E-06 -7.9086E-05 0.0043485" rpy="0 0 0" />
+    <mass value="0.0062193" />
+    <inertia ixx="2.1694E-07" ixy="1.2249E-09" ixz="-5.1688E-14" iyy="9.8554E-07" iyz="2.2269E-09" izz="1.0096E-06" />
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="1.5708 0 -1.8218" />
+    <geometry>
+      <mesh filename="package://host_agv/models/bot_agv5/meshes/sensor_five.STL" />
+    </geometry>
+    <material name="">
+      <color rgba="0.29804 0.29804 0.29804 1" />
+    </material>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="1.5708 0 -1.8218" />
+    <geometry>
+      <mesh filename="package://host_agv/models/bot_agv5/meshes/sensor_five.STL" />
+    </geometry>
+  </collision>
+</link>
+
+<!-- Joint connecting base_link to sensor_five -->
+<joint name="back_five_joint" type="fixed">
+  <origin xyz="-0.344519 0.25883 -0.0428" rpy="0 0 0" />
+  <parent link="base_link" />
+  <child link="sensor_five" />
+  <axis xyz="0 0 0" />
+</joint>
+
+<!-- Sensor six link -->
+<link name="sensor_six">
+  <inertial>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <mass value="0" />
+    <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="1.5708 0 -1.3198" />
+    <geometry>
+      <mesh filename="package://host_agv/models/bot_agv5/meshes/sensor_six.STL" />
+    </geometry>
+    <material name="">
+      <color rgba="1 1 1 1" />
+    </material>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="1.5708 0 -1.3198" />
+    <geometry>
+      <mesh filename="package://host_agv/models/bot_agv5/meshes/sensor_six.STL" />
+    </geometry>
+  </collision>
+</link>
+
+<!-- Joint connecting base_link to sensor_six -->
+<joint name="back_six_joint" type="fixed">
+  <origin xyz="-0.344519 -0.3501 -0.0428" rpy="0 0 0" />
+  <parent link="base_link" />
+  <child link="sensor_six" />
+  <axis xyz="0 0 0" />
+</joint>
+
+</robot>

@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="bot_agv">
+
+<!-- ****************** ROBOT BASE FOOTPRINT ***************************  -->
+  <link name="base_footprint">
+  </link>
+  <joint name="base_joint" type="fixed">
+   <parent link="base_footprint"/>
+   <child link="base_link" />
+   <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+  </joint>
+  
+<!-- ****************** ROBOT BASE LINK     ***************************  -->
+<link name="base_link">
+  <inertial>
+    <origin xyz="0.27563 0.56281 0.7922" rpy="0 0 0" />
+    <mass value="158.95" />
+    <inertia ixx="9.2282" ixy="3.3569E-05" ixz="7.603E-15"
+             iyy="22.081" iyz="-8.5315E-17" izz="13.953" />
+  </inertial>
+
+  <visual>
+    <origin xyz="-0.3 0.8 -0.5" rpy="0 0 0" />
+    <geometry>
+      <mesh filename="package://host_agv/meshes/base_link.STL" />
+    </geometry>
+    <material name="green">
+      <color rgba="0 1 0.5 0.9" />
+    </material>
+  </visual>
+
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <mesh filename="package://host_agv/meshes/base_link.STL" />
+    </geometry>
+  </collision>
+</link>
+<gazebo reference="base_link">
+  <material>Gazebo/Green</material>
+</gazebo>
+
+<!-- ****************** ROBOT LIDAR LINK     ***************************  -->
+
+<joint name="laser_joint" type="fixed">
+  <parent link="base_link"/>
+  <child link="laser_link"/>
+  <origin xyz="0.37369 0.0078 0.18386" rpy="0 0 0"/>
+</joint>
+
+<link name="laser_link">
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://host_agv/models/turtlebot3_common/meshes/lds.dae" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="dark"/>
+  </visual>
+
+  <collision>
+    <origin xyz="0.37369 0.0078 0.18386" rpy="0 0 0"/>
+    <geometry>
+      <cylinder length="0.0315" radius="0.055"/>
+    </geometry>
+  </collision>
+
+  <inertial>
+    <mass value="0.114" />
+    <origin xyz="0 0 0" />
+    <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001" />
+  </inertial>
+</link>
+
+<!-- *********************** IMU SENSOR SETUP **************************  -->
+<joint name="imu_joint" type="fixed">
+  <parent link="base_link"/>
+  <child link="imu_link"/>
+  <origin xyz="0.17369 0.0078 0.16386" rpy="0 0 0"/>
+</joint>
+
+<link name="imu_link">
+</link>
+ 
+ <!-- ****************** ROBOT WHEEL LINK     ***************************  --> 
+<link name="wheel_first">
+  <inertial>
+    <origin xyz="-5.5511E-17 0 0.05" rpy="0 0 0" />
+    <mass value="3.0709" />
+    <inertia ixx="0.010409" ixy="-6.074E-38" ixz="3.7616E-35"
+             iyy="0.010409" iyz="-3.1038E-35" izz="0.0157" />
+  </inertial>
+
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <mesh filename="package://host_agv/meshes/wheel_first.STL" />
+    </geometry>
+    <material name="blue">
+      <color rgba="0.5 0.2 1 1" />
+    </material>
+  </visual>
+
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <mesh filename="package://host_agv/meshes/wheel_first.STL" />
+    </geometry>
+  </collision>
+</link>
+
+<joint name="wheel_first_joint" type="revolute">
+  <origin xyz="-0.02436 0.4328 0.04396" rpy="1.5708 0 0" />
+  <parent link="base_link" />
+  <child link="wheel_first" />
+  <limit upper="3.1415" lower="-3.1415" effort="30" velocity="5.0" />
+  <axis xyz="0 0 1" />
+</joint>
+<gazebo reference="wheel_first">
+  <material>Gazebo/Blue</material>
+</gazebo>
+  
+<link name="wheel_second">
+  <inertial>
+    <origin xyz="0 -1.1102E-16 0.05" rpy="0 0 0" />
+    <mass value="3.0709" />
+    <inertia ixx="0.010409" ixy="-6.074E-38" ixz="4.4417E-37"
+             iyy="0.010409" iyz="-3.1038E-35" izz="0.0157" />
+  </inertial>
+
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <mesh filename="package://host_agv/meshes/wheel_second.STL" />
+    </geometry>
+    <material name="">
+      <color rgba="0.5 0.2 1 1" />
+    </material>
+  </visual>
+
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <mesh filename="package://host_agv/meshes/wheel_second.STL" />
+    </geometry>
+  </collision>
+</link>
+
+<joint name="wheel_second_joint" type="revolute">
+  <origin xyz="-0.02436 -0.3172 0.04396" rpy="1.5708 0 0" />
+  <parent link="base_link" />
+  <child link="wheel_second" />
+  <limit upper="3.1415" lower="-3.1415" effort="30" velocity="5.0" />
+  <axis xyz="0 0 1" />
+</joint>
+<gazebo reference="wheel_second">
+  <material>Gazebo/Blue</material>
+</gazebo>
+
+<!-- ****************** ROBOT FLAT LINK     ***************************  --> 
+<link name="flat_wheel">
+  <inertial>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <mass value="0" />
+    <inertia ixx="0" ixy="0" ixz="0"
+             iyy="0" iyz="0" izz="0" />
+  </inertial>
+
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <mesh filename="package://host_agv/meshes/flat_wheel.STL" />
+    </geometry>
+    <material name="blue">
+      <color rgba="0 0 1 0.3" />
+    </material>
+  </visual>
+
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <mesh filename="package://host_agv/meshes/flat_wheel.STL" />
+    </geometry>
+  </collision>
+</link>
+
+<joint name="flat_joint" type="fixed">
+  <origin xyz="-0.41936 -0.2222 -0.02806" rpy="1.5708 0 1.5708" />
+  <parent link="base_link" />
+  <child link="flat_wheel" />
+  <axis xyz="0 0 0" />
+</joint>
+<gazebo reference="flat_wheel">
+  <material>Gazebo/Blue</material>
+</gazebo>
+ 
+ <!-- ****************** ROBOT FRONT WHEEL     ***************************  -->
+<link name="front_1wheel">
+  <inertial>
+    <origin xyz="0 1.66533453693773E-16 -0.0104999999999971" rpy="0 0 0" />
+    <mass value="0.0701949608536469" />
+    <inertia ixx="1.95595333628651E-05" ixy="8.470329472543E-22" ixz="3.47762902625147E-20"
+             iyy="1.95595333628652E-05" iyz="-2.00251094843313E-20" izz="3.18070916368088E-05" />
+  </inertial>
+
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <mesh filename="package://host_agv/meshes/front_1wheel.STL" />
+    </geometry>
+    <material name="red">
+      <color rgba="1 0 0 0.5" />
+    </material>
+  </visual>
+
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <mesh filename="package://host_agv/meshes/front_1wheel.STL" />
+    </geometry>
+  </collision>
+</link>
+
+<joint name="front_1joint" type="fixed">
+  <origin xyz="0 0.0025 0.79" rpy="-1.5708 -1.1003 1.5708" />
+  <parent link="flat_wheel" />
+  <child link="front_1wheel" />
+  <axis xyz="0 0 0" />
+</joint>
+<gazebo reference="front_1wheel">
+  <material>Gazebo/Red</material>
+</gazebo>
+  
+<link name="front_2wheel">
+  <inertial>
+    <origin xyz="-1.11022302462516E-16 1.11022302462516E-16 -0.0125000000000007" rpy="0 0 0" />
+    <mass value="0.070194960853647" />
+    <inertia ixx="1.95595333628652E-05" ixy="-3.3881317890172E-21" ixz="1.01541800275075E-19"
+             iyy="1.95595333628652E-05" iyz="-8.46190000007294E-20" izz="3.18070916368088E-05" />
+  </inertial>
+
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <mesh filename="package://host_agv/meshes/front_2wheel.STL" />
+    </geometry>
+    <material name="red">
+      <color rgba="1 0 0 0.5" />
+    </material>
+  </visual>
+
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <mesh filename="package://host_agv/meshes/front_2wheel.STL" />
+    </geometry>
+  </collision>
+</link>
+
+<joint name="front_2joint" type="fixed">
+  <origin xyz="0.437 0.0025 0.79" rpy="-1.5708 -0.86891 1.5708" />
+  <parent link="flat_wheel" />
+  <child link="front_2wheel" />
+  <axis xyz="0 0 0" />
+</joint>
+<gazebo reference="front_2wheel">
+  <material>Gazebo/Red</material>
+</gazebo>
+
+<!-- ****************** ROBOT BACK WHEEL     ***************************  -->
+<link name="back_3wheel">
+  <inertial>
+    <origin xyz="-1.38777878078145E-16 5.55111512312578E-17 -0.0125000000000007" rpy="0 0 0" />
+    <mass value="0.070194960853647" />
+    <inertia ixx="1.95595333628652E-05" ixy="2.11758236813575E-22" ixz="1.26072715151201E-19"
+             iyy="1.95595333628652E-05" iyz="-2.12874478134967E-20" izz="3.18070916368088E-05" />
+  </inertial>
+
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <mesh filename="package://host_agv/meshes/back_3wheel.STL" />
+    </geometry>
+    <material name="red">
+      <color rgba="1 0 0 0.5" />
+    </material>
+  </visual>
+
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <mesh filename="package://host_agv/meshes/back_3wheel.STL" />
+    </geometry>
+  </collision>
+</link>
+
+<joint name="back_3joint" type="fixed">
+  <origin xyz="0.437 0.0025 0" rpy="-1.5708 -1.4047 1.5708" />
+  <parent link="flat_wheel" />
+  <child link="back_3wheel" />
+  <axis xyz="0 0 0" />
+</joint>
+<gazebo reference="back_3wheel">
+  <material>Gazebo/Red</material>
+</gazebo>
+  
+<link name="back_4wheel">
+  <inertial>
+    <origin xyz="0.00617510377435704 0.004256535372333 -0.0105000000000002" rpy="0 0 0" />
+    <mass value="0.0701949608536465" />
+    <inertia ixx="1.9559533362865E-05" ixy="0" ixz="-2.29323325928426E-20"
+             iyy="1.9559533362865E-05" iyz="3.65719482132971E-20" izz="3.18070916368085E-05" />
+  </inertial>
+
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <mesh filename="package://host_agv/meshes/back_4wheel.STL" />
+    </geometry>
+    <material name="red">
+      <color rgba="1 0 0 0.5" />
+    </material>
+  </visual>
+
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <mesh filename="package://host_agv/meshes/back_4wheel.STL" />
+    </geometry>
+  </collision>
+</link>
+
+<joint name="back_4joint" type="fixed">
+  <origin xyz="0 0.01 0" rpy="1.5708 0.60351 -1.5708" />
+  <parent link="flat_wheel" />
+  <child link="back_4wheel" />
+  <axis xyz="0 0 0" />
+</joint>
+<gazebo reference="back_4wheel">
+  <material>Gazebo/Red</material>
+</gazebo>
+
+</robot>
