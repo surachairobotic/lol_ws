@@ -44,7 +44,7 @@ class IMUPublisher(Node):
             self.ser = serial.Serial(self.serial_port, self.baud_rate)
             self.get_logger().info(f"Serial port opened: {self.serial_port}")
         except serial.SerialException:
-            self.get_logger().error("Failed to open serial port. Make sure it's correct and not already in use.")
+            self.get_logger().error("Failed to open {self.serial_port} serial port. Make sure it's correct and not already in use.")
             return
 
     def read_serial_data(self):
@@ -68,28 +68,28 @@ class IMUPublisher(Node):
             self.euler_roll = euler_data[0]
             self.euler_pitch = euler_data[1]
             self.euler_yaw = euler_data[2]
-            self.get_logger().info(f"Euler Angle: euler_roll={self.euler_roll}, euler_pitch={self.euler_pitch}, euler_yaw={self.euler_yaw}")
+            #self.get_logger().info(f"Euler Angle: euler_roll={self.euler_roll}, euler_pitch={self.euler_pitch}, euler_yaw={self.euler_yaw}")
 
         if "G" in data_dict:
             angular_vel_data = data_dict["G"]
             self.angular_vel_x = angular_vel_data[0]
             self.angular_vel_y = angular_vel_data[1]
             self.angular_vel_z = angular_vel_data[2]
-            self.get_logger().info(f"Angular Velocity: X={self.angular_vel_x}, Y={self.angular_vel_y}, Z={self.angular_vel_z}")
+            #self.get_logger().info(f"Angular Velocity: X={self.angular_vel_x}, Y={self.angular_vel_y}, Z={self.angular_vel_z}")
 
         if "L" in data_dict:
             linear_accel_data = data_dict["L"]
             self.linear_accel_x = linear_accel_data[0]
             self.linear_accel_y = linear_accel_data[1]
             self.linear_accel_z = linear_accel_data[2]
-            self.get_logger().info(f"Linear Acceleration: X={self.linear_accel_x}, Y={self.linear_accel_y}, Z={self.linear_accel_z}")
+            #self.get_logger().info(f"Linear Acceleration: X={self.linear_accel_x}, Y={self.linear_accel_y}, Z={self.linear_accel_z}")
 
         if "M" in data_dict:
             magnetometer_data = data_dict["M"]
             self.magnetometer_x = magnetometer_data[0]
             self.magnetometer_y = magnetometer_data[1]
             self.magnetometer_z = magnetometer_data[2]
-            self.get_logger().info(f"Magnetometer: X={self.magnetometer_x}, Y={self.magnetometer_y}, Z={self.magnetometer_z}")
+            #self.get_logger().info(f"Magnetometer: X={self.magnetometer_x}, Y={self.magnetometer_y}, Z={self.magnetometer_z}")
 
     def publish_imu(self):
         self.imu.header = Header()

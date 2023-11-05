@@ -104,13 +104,13 @@ controller_server:
       min_vel_y: 0.0  # Min linear y velocity
       max_vel_x: 0.1  # Max linear x velocity (adjust for your AGV)
       max_vel_y: 0.0  # Max linear y velocity
-      max_vel_theta: 0.05 # 0.15  # Max angular velocity (adjust for your AGV)
+      max_vel_theta: 0.15  # Max angular velocity (adjust for your AGV)
       min_speed_xy: 0.0  # Min speed for XY motion
       max_speed_xy: 0.1  # Max speed for XY motion (adjust for your AGV)
       min_speed_theta: 0.0  # Min speed for angular motion
       acc_lim_x: 0.5  # Linear acceleration limit (m/s^2)
       acc_lim_y: 0.0  # Linear y acceleration limit
-      acc_lim_theta: 0.0  # Angular acceleration limit (radians/s²)
+      acc_lim_theta: 0.2  # Angular acceleration limit (radians/s²)
       decel_lim_x: -0.5  # Linear deceleration limit (m/s^2)
       decel_lim_y: 0.0  # Linear y deceleration limit
       decel_lim_theta: -0.2  # Angular deceleration limit (radians/s²)
@@ -146,8 +146,8 @@ controller_server_rclcpp_node:
 local_costmap:
   local_costmap:
     ros__parameters:
-      update_frequency: 10.0  # Update frequency (Hz)
-      publish_frequency: 10.0  # Publish frequency (Hz)
+      update_frequency: 5.0  # Update frequency (Hz)
+      publish_frequency: 2.0  # Publish frequency (Hz)
       global_frame: odom  # Global frame
       robot_base_frame: base_link  # Base frame for your AGV
       use_sim_time: False  # Use real-time

@@ -7,6 +7,7 @@ import serial, time, pygame, sys, threading, math
 import numpy as np
 
 class OdomPublisher(Node):
+
     def __init__(self):
         super().__init__('odom_publisher')
                 
@@ -32,9 +33,9 @@ class OdomPublisher(Node):
 
         self.odom_pub = self.create_publisher(Odometry, '/odom', 10)
         #self.vel_pub = self.create_publisher(Twist, '/cmd_vel', self.control_callback, 10)
-        self.timer = self.create_timer(1/100, self.publish_odom)
+        self.timer = self.create_timer(1/20, self.publish_odom)
 
-        self.timer_readWheel = self.create_timer(1/5, self.wheel.readInfo)
+        self.timer_readWheel = self.create_timer(1/20, self.wheel.readInfo)
         self.timer_controlWheel = self.create_timer(1/20, self.controlWheel)
         self.timer_printInfo = self.create_timer(1/10, self.printInfo)
         # Create TF2 broadcaster for transforms
@@ -42,15 +43,18 @@ class OdomPublisher(Node):
 	
         
     def control_callback(self, msg):
+        print(msg)
         self.current_cmd = msg
 
     def readWheel(self):
         self.wheel.readInfo()
+
     def linear_velocity_to_RPM(self, linear_velocity, wheel_diameter):
         circumference = wheel_diameter * math.pi
         rotations_per_second = linear_velocity / circumference
         RPM = rotations_per_second * 60
         return RPM
+
     def RPM_to_velocity(self, RPM_left, RPM_right, wheel_base, wheel_diameter):
         circumference = wheel_diameter * math.pi
         linear_velocity_left = RPM_left * circumference / 60
@@ -61,15 +65,14 @@ class OdomPublisher(Node):
 
     def controlWheel(self):
         self.wheel.move(-self.cmdL, self.cmdR)
+
     def printInfo(self):
         x = self.current_cmd.linear.x        
         w = self.current_cmd.angular.z
         vL = (self.current_cmd.linear.x - (self.L/2)*self.current_cmd.angular.z)
         vR = (self.current_cmd.linear.x + (self.L/2)*self.current_cmd.angular.z)
-
         self.cmdL = int(self.linear_velocity_to_RPM(vL, self.wheel.radius*2))
         self.cmdR = int(self.linear_velocity_to_RPM(vR, self.wheel.radius*2))
-        
         self.cmdCalOdom = self.RPM_to_velocity(self.cmdL, self.cmdR, self.L, self.wheel.radius*2)
         self.currentOdom = self.RPM_to_velocity(self.wheel.left_rpm, self.wheel.right_rpm, self.L, self.wheel.radius*2)
         print(self.currentOdom, " : ", [self.wheel.left_rpm, self.wheel.right_rpm], " : ", self.cmdCalOdom)
@@ -158,6 +161,7 @@ class OdomPublisher(Node):
         return quaternion
 
     def get_position_and_orientation(self, pose, dt):
+
         x = pose.pose.position.x
         y = pose.pose.position.y
         yaw = get_yaw_from_quaternion(pose.pose.orientation)
@@ -248,6 +252,7 @@ class Controller():
                 if len(cmd_right) > 0:
                     self.extractData(cmd_right[-1])
             time.sleep(0.01) 
+
     def extract_commands(self, data):
         commands = []
         start_indices = [i for i in range(len(data)) if data[i:i+2] in [b'\x01\x06', b'\x02\x06', b'\x01\x03', b'\x02\x03']]
@@ -255,6 +260,7 @@ class Controller():
             commands.append(data[start_indices[i]:start_indices[i + 1]])
         commands.append(data[start_indices[-1]:])
         return commands
+
     def get_cmd(self, commands, key):
         res = []
         for cmd in commands:
@@ -431,11 +437,17 @@ class Controller():
         # Convert the hex string to a bytes object
         cmdL = self.cmd(id=self.left_id, register_value=spdL)
         cmdR = self.cmd(id=self.right_id, register_value=spdR)
-        #print(cmdL, ' <<< : >>> ', cmdR)
-        time.sleep(0.01)
-        self.ser.write(cmdL)
+        print(cmdL, ' <<< : >>> ', cmdR)
+        # j = 0 
+        # if j == 0 :        
+        #time.sleep(0.0001)
+        #    j = j + 1
         time.sleep(0.01)
         self.ser.write(cmdR)
+        
+        time.sleep(0.01)
+        #if j == 1:
+        self.ser.write(cmdL)
 
     def __del__(self):
         self.setMotorEnable(False)

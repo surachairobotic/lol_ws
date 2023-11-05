@@ -1,0 +1,11 @@
+ros2 launch agv_bringup agv_robot_v1.launch.py
+ros2 launch agv_navigation2 navigation2_v1.launch.py map:=$HOME/map_slam7.yaml
+ros2 launch slam_toolbox online_async_launch.py use_sim_time:=false slam_params_file:=$HOME/my_param_online_async.yaml
+
+
+
+
+Serial port:
+Mega (ACMx) --> imu
+Uno (ACMx) --> LED
+rplidar (USBx) --> lidar

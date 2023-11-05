@@ -8,28 +8,22 @@ from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, ThisLaunchFileDir
 from launch_ros.actions import Node
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+
 
 def generate_launch_description():
 
-    agv_param_dir = LaunchConfiguration(
-        'agv_param_dir',
-        default=os.path.join(
-            get_package_share_directory('agv_bringup'),
-            'param',
-            'agv5.yaml'))
-    
+ 
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
+    nav2_launch_file_dir = os.path.join(get_package_share_directory('nav2_bringup'), 'launch')
 
+   
     return LaunchDescription([
         DeclareLaunchArgument(
             'use_sim_time',
             default_value=use_sim_time,
             description='Use simulation (Gazebo) clock if true'),
 
-        DeclareLaunchArgument(
-            'agv_param_dir',
-            default_value=agv_param_dir,
-            description='Full path to agv parameter file to load'),
 
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
@@ -42,8 +36,8 @@ def generate_launch_description():
                 os.path.join(get_package_share_directory('sllidar_ros2'), 'launch', 'sllidar_a3_launch.py')
             ),
             launch_arguments={
-                'serial_port': '/dev/ttyUSB1',  # Set the correct USB port
-                'frame_id': 'laser'
+                'serial_port': '/dev/ttyUSB0',  # Set the correct USB port
+                'frame_id': 'laser_bottom'
             }.items(),
         ),
 
@@ -61,19 +55,20 @@ def generate_launch_description():
             output='screen',
         ),
 
-        Node(
-            package='hospital_agv',
-            executable='odom_publisher_v1',
-            name='odom_publisher_v1',
-            output='screen',
-        ),
+       Node(
+           package='hospital_agv',
+           executable='odom_publisher_v1',
+           name='odom_publisher_v1',
+           output='screen',
+       ),
         Node(
             package='tf2_ros',
             executable='static_transform_publisher',
             name='base_link_broadcaster',
             arguments=['0', '0', '0', '0', '0', '0', 'base_footprint', 'base_link'],
             output='screen'
-        )
+        ),
+  
 
         # Add other nodes below as needed
 

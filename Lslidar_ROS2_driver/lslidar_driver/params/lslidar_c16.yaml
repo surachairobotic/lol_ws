@@ -16,7 +16,7 @@
     angle_disable_min: 0
     angle_disable_max: 0
     horizontal_angle_resolution: 0.18     #10Hz:0.18  20Hz:0.36 5Hz: 0.09
-    scan_num: 20
+    scan_num: 10
     read_once: false
     publish_scan: true
     topic_name: lslidar_point_cloud
