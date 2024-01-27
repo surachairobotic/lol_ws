@@ -36,12 +36,12 @@ diff_drive_controller:
     linear:
       x:
         has_velocity_limits: true
-        max_velocity: 0.11  # Adjust to your robot's maximum linear velocity
+        max_velocity: 0.1  # Adjust to your robot's maximum linear velocity
 
     angular:
       z:
         has_velocity_limits: true
-        max_velocity: 0.25 # Adjust to your robot's maximum angular velocity
+        max_velocity: 0.1 # Adjust to your robot's maximum angular velocity
 
     pose_covariance_diagonal: [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 0.001]
     twist_covariance_diagonal: [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 0.001]

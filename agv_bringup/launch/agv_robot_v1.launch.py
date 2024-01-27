@@ -22,7 +22,8 @@ def generate_launch_description():
         DeclareLaunchArgument(
             'use_sim_time',
             default_value=use_sim_time,
-            description='Use simulation (Gazebo) clock if true'),
+            description='Use simulation (Gazebo) clock if true'
+        ),
 
 
         IncludeLaunchDescription(
@@ -31,15 +32,15 @@ def generate_launch_description():
             launch_arguments={'use_sim_time': use_sim_time}.items(),
         ),
 
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(
-                os.path.join(get_package_share_directory('sllidar_ros2'), 'launch', 'sllidar_a3_launch.py')
-            ),
-            launch_arguments={
-                'serial_port': '/dev/ttyUSB0',  # Set the correct USB port
-                'frame_id': 'laser_bottom'
-            }.items(),
-        ),
+        #IncludeLaunchDescription(
+        #    PythonLaunchDescriptionSource(
+        #        os.path.join(get_package_share_directory('sllidar_ros2'), 'launch', 'sllidar_a3_launch.py')
+        #    ),
+        #    launch_arguments={
+        #         'serial_port': '/dev/ttyUSB0',  # Set the correct USB port
+        #        'frame_id': 'laser_bottom'
+        #    }.items(),
+        #),
 
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
@@ -50,17 +51,29 @@ def generate_launch_description():
 
         Node(
             package='hospital_agv',
-            executable='imu_publisher_s1',
-            name='imu_publisher_s1',
+            executable='imu_publisher',
+            name='imu_publisher',
             output='screen',
         ),
 
-       Node(
-           package='hospital_agv',
-           executable='odom_publisher_v1',
-           name='odom_publisher_v1',
-           output='screen',
-       ),
+        Node(
+            package='hospital_agv',
+            executable='odom_publisher',
+            name='odom_publisher',
+            output='screen',
+        ),
+        Node(
+            package='hospital_agv',
+            executable='motor_publisher',
+            name='motor_publisher',
+            output='screen',
+        ),
+        #Node(
+        #    package='hospital_agv',
+        #    executable='robot_state_publisher',
+        #    name='robot_state_publisher',
+        #    output='screen',
+        #),
         Node(
             package='tf2_ros',
             executable='static_transform_publisher',

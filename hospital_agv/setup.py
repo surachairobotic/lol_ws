@@ -20,8 +20,9 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'imu_publisher_s1 = hospital_agv.imu_publisher_v2:main',
-            'odom_publisher_v1 = hospital_agv.odom_publisher_v2:main',
+            'imu_publisher = hospital_agv.imu_publisher_v2:main',
+            'odom_publisher = hospital_agv.odom_publisher_v2:main',
+            'motor_publisher = hospital_agv.motor_driver:main',
             'robot_state_publisher = hospital_agv.robot_state_publisher:main',
             'server = hospital_agv.server:main',
             'send_goal = hospital_agv.send_goal:main'
